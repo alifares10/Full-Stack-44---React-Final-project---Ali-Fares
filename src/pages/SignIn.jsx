@@ -49,7 +49,6 @@ const SignIn = () => {
   });
   const onSubmit = async (values) => {
     setLoading(true);
-    console.log(values);
     try {
       const credentials = await signInWithEmailAndPassword(
         auth,

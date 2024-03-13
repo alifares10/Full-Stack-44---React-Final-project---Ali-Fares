@@ -19,17 +19,6 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log(user);
-        if (!reduxUser.isAuth) {
-          dispatch({
-            type: "LOGIN",
-            payload: {
-              id: user.uid,
-              email: user.email,
-              token: user.accessToken,
-              isAuth: true,
-            },
-          });
-        }
       } else {
         dispatch({ type: "LOGOUT" });
         console.log("No user");
@@ -37,7 +26,7 @@ function App() {
     });
 
     return unsubscribe;
-  }, [reduxUser.isAuth]);
+  }, []);
 
   return (
     <>

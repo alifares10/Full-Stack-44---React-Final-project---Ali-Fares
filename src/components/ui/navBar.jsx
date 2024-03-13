@@ -7,9 +7,10 @@ import { Button } from "./Button";
 import { auth } from "../../firebase";
 import { toast } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 
 const NavBar = (className) => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   const handleSignOut = () => {
@@ -23,10 +24,12 @@ const NavBar = (className) => {
     }
   };
 
+  console.log(user.isAuth);
+
   return (
     <nav
       className={cn(
-        "flex items-center space-x-4 lg:space-x-6 border-b-2 w-screen justify-between p-3 px-6 bg-gray-300 dark:bg-gray-900",
+        "flex items-center space-x-4 lg:space-x-6 border-b-2 justify-between p-3 px-6 bg-gray-300 dark:bg-gray-900 w-full",
         className
       )}
     >
@@ -58,13 +61,20 @@ const NavBar = (className) => {
         </Link>
       </div>
       <div className="flex items-center ">
-        <Link
-          to="/signIn"
-          className="text-sm font-medium text-muted-foreground transition-colors dark:hover:text-primary hover:text-gray-800"
-        >
-          Sign In
-        </Link>
-        <Button onClick={handleSignOut}>Sign Out</Button>
+        {user.isAuth ? (
+          <div className="flex mx-3 space-x-2">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Button onClick={handleSignOut}>Sign Out</Button>
+          </div>
+        ) : (
+          <Button>
+            <Link to="/signIn">Sign In</Link>
+          </Button>
+        )}
+
         <ModeToggle />
       </div>
     </nav>

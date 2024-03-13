@@ -11,7 +11,6 @@ export function ModeToggle() {
     <div className="flex justify-center items-center p-1 m-1 ">
       {theme === "dark" ? (
         <div className="flex">
-          <Moon size={24} />
           <Switch
             defaultChecked={theme === "dark"}
             onCheckedChange={() =>
@@ -19,9 +18,11 @@ export function ModeToggle() {
             }
             className=""
           />
+          <Moon size={24} />
         </div>
       ) : (
         <div className="flex">
+          <Sun size={24} />
           <Switch
             defaultChecked={theme === "dark"}
             onCheckedChange={() =>
@@ -29,7 +30,6 @@ export function ModeToggle() {
             }
             className=""
           />
-          <Sun size={24} />
         </div>
       )}
     </div>
