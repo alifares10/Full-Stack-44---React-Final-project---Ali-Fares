@@ -19,11 +19,12 @@ import useFetchAll from "@/hooks/useFetchAll ";
 import useAdd from "@/hooks/useAdd";
 import toast from "react-hot-toast";
 
-const AddCustomerToProduct = ({ customer }) => {
+const AddCustomerCombox = ({ customer }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const { data: allProducs, getData, loading } = useFetchAll();
   const { addToDatabase } = useAdd();
+  const [showAddCustomer, setShowAddCustomer] = useState(false);
 
   useEffect(() => {
     getData("products");
@@ -93,6 +94,22 @@ const AddCustomerToProduct = ({ customer }) => {
           <Button onClick={savePurchase}>Save</Button>
         </div>
       )}
+    </>
+  );
+};
+
+const AddCustomerToProduct = ({ customer }) => {
+  const [showAddCustomer, setShowAddCustomer] = useState(false);
+
+  return (
+    <>
+      <Button
+        onClick={() => setShowAddCustomer((prevData) => !prevData)}
+        className="m-2 flex lg:w-[200px]"
+      >
+        {showAddCustomer ? "Close" : "Add"}
+      </Button>
+      {showAddCustomer && <AddCustomerCombox customer={customer} />}
     </>
   );
 };

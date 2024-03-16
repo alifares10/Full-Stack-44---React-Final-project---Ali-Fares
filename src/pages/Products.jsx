@@ -9,6 +9,7 @@ import Loading from "@/components/ui/loading";
 import Error from "@/components/ui/error";
 import PurchasedAmount from "@/components/product/PurchasedAmount";
 import ProductCard from "@/components/product/ProductCard";
+import { Loader2 } from "lucide-react";
 
 const Products = () => {
   const {
@@ -47,7 +48,7 @@ const Products = () => {
       <Button onClick={addProduct}>Add Product</Button>
       <PurchasedAmount />
 
-      {products.length > 0 && (
+      {products.length > 0 ? (
         <>
           <div className="grid grid-cols-2">
             {products.map((product, index) => (
@@ -59,6 +60,14 @@ const Products = () => {
               />
             ))}
           </div>
+        </>
+      ) : (
+        <>
+          {!products ? (
+            <h1> no products found </h1>
+          ) : (
+            <Loader2 size="50 " className="animate-spin  m-3" />
+          )}
         </>
       )}
     </div>
