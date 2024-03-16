@@ -17,8 +17,6 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/Button";
 import { toast } from "react-hot-toast";
-import { Label } from "@/components/ui/label";
-import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";

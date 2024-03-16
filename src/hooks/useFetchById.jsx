@@ -7,9 +7,7 @@ const useFetchById = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  console.log("fetching by id");
-
-  const gethDataById = async (id, collectionName) => {
+  const getDataById = async (id, collectionName) => {
     setLoading(true);
     setError(null);
     try {
@@ -32,7 +30,7 @@ const useFetchById = () => {
     }
   };
 
-  return { data, loading, error, gethDataById };
+  return { data, loading, error, getDataById };
 };
 
 export default useFetchById;

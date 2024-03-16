@@ -22,13 +22,13 @@ const ProductCard = ({ product, purchases, customers }) => {
             <CardTitle>
               <Link
                 to={`/products/${product.id}`}
-                className="font-bold tracking-wide"
+                className="font-bold tracking-wide hover:text-gray-500"
               >
                 {product.name}
               </Link>
             </CardTitle>
           </CardHeader>
-          <CardContent className="justify-center items-center text-center ">
+          <CardContent className="justify-center items-center text-center flex flex-col m-1">
             <p>Price: {product.price}</p>
             <p>Quantity: {product.quantity}</p>
             <CustomerProducts

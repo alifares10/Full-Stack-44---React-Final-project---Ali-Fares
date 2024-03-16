@@ -4,7 +4,8 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Customers from "./pages/Customers";
 import Purchases from "./pages/Purchases";
-import EditProduct from "./components/product/EditProduct";
+import EditProduct from "./pages/EditProduct";
+import EditCustomer from "./pages/EditCustomer";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
@@ -39,6 +40,7 @@ function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<EditProduct />} />
             <Route path="/customers" element={<Customers />} />
+            <Route path="/customers/:id" element={<EditCustomer />} />
             <Route path="/purchases" element={<Purchases />} />
             <Route path="*" element={<NotFound />} />
           </>

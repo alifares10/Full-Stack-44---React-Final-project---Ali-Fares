@@ -45,7 +45,7 @@ const CustomerProducts = ({ product, purchases, customers }) => {
   });
 
   return (
-    <div className="border border-slate-400 p-3 m-3 flex flex-col rounded-lg">
+    <div className="border border-slate-400 p-3 m-3 flex flex-col rounded-lg lg:w-[400px]">
       {uniquePurchases.length > 0 && (
         <>
           {filteredCustomers.map((customer, index) => (
@@ -53,7 +53,10 @@ const CustomerProducts = ({ product, purchases, customers }) => {
               key={index}
               className="flex flex-col items-center justify-center border-b-2 m-1 p-1 dark:border-white "
             >
-              <Link to={`/customers/${customer?.id}`} className=" flex   ">
+              <Link
+                to={`/customers/${customer?.id}`}
+                className=" flex  font-bold "
+              >
                 <p className="flex mr-2">Customer Name:</p>
                 <p className="flex hover:text-gray-500">
                   {customer?.firstName} {customer?.lastName}
@@ -62,7 +65,12 @@ const CustomerProducts = ({ product, purchases, customers }) => {
               {/* if the customer has bought the product more than one time*/}
               {filteredPurchases.map((purchase, index) => {
                 if (purchase.CustomerID === customer.id) {
-                  return <p key={index}>Date: {purchase.date}</p>;
+                  return (
+                    <li className="p-1" key={index}>
+                      Purchase Date:{" "}
+                      {new Date(purchase.date).toLocaleDateString()}
+                    </li>
+                  );
                 }
               })}
 
