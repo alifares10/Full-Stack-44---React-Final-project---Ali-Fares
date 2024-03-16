@@ -24,8 +24,6 @@ const NavBar = (className) => {
     }
   };
 
-  console.log(user.isAuth);
-
   return (
     <nav
       className={cn(

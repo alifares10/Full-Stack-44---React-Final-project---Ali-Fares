@@ -17,27 +17,18 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/Button";
 import { toast } from "react-hot-toast";
-import { Label } from "@/components/ui/label";
-import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { db } from "../firebase";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  query,
-  updateDoc,
-} from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import useAdd from "@/hooks/useAdd";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -53,6 +44,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { addToDatabase } = useAdd();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -77,7 +69,7 @@ const SignUp = () => {
         isAuth: true,
       };
       dispatch({ type: "LOGIN", payload });
-      await addDoc(collection(db, "users"), {
+      await addToDatabase("users", {
         email: credentials.user.email,
         name: values.name,
       });
