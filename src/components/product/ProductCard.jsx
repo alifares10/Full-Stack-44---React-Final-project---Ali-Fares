@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import CustomerProducts from "./CustomerProducts";
+import PurchaseCutomers from "./PurchaseCutomers";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product, purchases, customers }) => {
@@ -31,7 +31,7 @@ const ProductCard = ({ product, purchases, customers }) => {
           <CardContent className="justify-center items-center text-center flex flex-col m-1">
             <p>Price: {product.price}</p>
             <p>Quantity: {product.quantity}</p>
-            <CustomerProducts
+            <PurchaseCutomers
               product={product}
               purchases={purchases}
               customers={customers}

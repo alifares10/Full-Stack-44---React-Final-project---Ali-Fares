@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import AddCustomerToProduct from "./AddCustomerToProduct";
 import { Link } from "react-router-dom";
 
-const CustomerProducts = ({ product, purchases, customers }) => {
+const PurchaseCutomers = ({ product, purchases, customers }) => {
   const { addToDatabase } = useAdd();
 
   // const handleClick = async () => {
@@ -79,9 +79,8 @@ const CustomerProducts = ({ product, purchases, customers }) => {
           ))}
         </>
       )}
-      {/* <Button onClick={handleClick}>Buy</Button> */}
     </div>
   );
 };
 
-export default CustomerProducts;
+export default PurchaseCutomers;

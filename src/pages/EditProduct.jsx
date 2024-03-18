@@ -2,7 +2,6 @@ import React from "react";
 import EditProductForm from "@/components/product/EditProductForm";
 import ProductCustomers from "@/components/product/ProductCustomers";
 import { useParams } from "react-router-dom";
-import useFetchAll from "@/hooks/useFetchAll ";
 
 const EditProduct = () => {
   const { id } = useParams();

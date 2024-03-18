@@ -29,25 +29,25 @@ import useDelete from "@/hooks/useDelete";
 import DeleteDialog from "../ui/deleteDialog";
 
 const formSchema = z.object({
-  name: z.string(),
-  price: z.number().min(0, "Price must be greater than or equal to 0"),
-  quantity: z.number().min(0, "Quantity must be greater than or equal to 0"),
+  firstName: z.string(),
+  lastName: z.string(),
+  City: z.string(),
 });
 
-const EditProductForm = ({ id }) => {
+const EditCustomerForm = ({ id }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { updateData } = useUpdate();
   const { deleteData } = useDelete();
   const {
-    data: product,
-    loading: productLoading,
+    data: customer,
+    loading: customerLoading,
     error,
     getDataById,
   } = useFetchById();
 
   useEffect(() => {
-    getDataById(id, "products");
+    getDataById(id, "customers");
   }, []);
 
   const form = useForm({
@@ -55,44 +55,44 @@ const EditProductForm = ({ id }) => {
   });
 
   useEffect(() => {
-    form.setValue("name", product.name);
-    form.setValue("price", product.price);
-    form.setValue("quantity", product.quantity);
-  }, [product]);
+    form.setValue("firstName", customer.firstName);
+    form.setValue("lastName", customer.lastName);
+    form.setValue("City", customer.City);
+  }, [customer]);
 
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      await updateData("products", id, values);
-      toast.success("Product updated successfully");
+      await updateData("customers", id, values);
+      toast.success("customer updated successfully");
       setLoading(false);
     } catch (error) {
-      toast.error("Failed to update product");
+      toast.error("Failed to update customer");
       setLoading(false);
     }
   };
 
-  const deleteProduct = async () => {
+  const deleteCustomer = async () => {
     setLoading(true);
     try {
-      deleteData("products", id);
-      toast.success("Product deleted successfully");
+      deleteData("customers", id);
+      toast.success("customer deleted successfully");
       setLoading(false);
-      navigate("/products");
+      navigate("/customers");
     } catch (error) {
       setLoading(false);
-      toast.error("Failed to delete product");
+      toast.error("Failed to delete customer");
       console.log(error);
     }
   };
 
   return (
     <>
-      {product.name !== undefined ? (
+      {customer.firstName !== undefined ? (
         <Card className="space-y-1 flex flex-col lg:w-[600px]">
           <CardHeader>
             <CardTitle className="text-2xl text-center tracking-wider">
-              {product.name}
+              {customer.firstName} {customer.lastName}
             </CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4">
@@ -104,18 +104,18 @@ const EditProductForm = ({ id }) => {
                 <div className="md:grid md:grid-cols-1 gap-4">
                   <FormField
                     control={form.control}
-                    name="name"
+                    name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor="name">Name: </FormLabel>
+                        <FormLabel htmlFor="firstName">First Name: </FormLabel>
                         <FormControl>
                           <Input
                             type="text"
-                            label="name"
-                            placeholder="Name"
+                            label="firstName"
+                            placeholder="First Name"
                             disabled={loading}
                             {...field}
-                            {...form.register("name")}
+                            {...form.register("firstName")}
                             className="my-2 text-white"
                           />
                         </FormControl>
@@ -125,18 +125,18 @@ const EditProductForm = ({ id }) => {
                   />
                   <FormField
                     control={form.control}
-                    name="price"
+                    name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor="price">Price: </FormLabel>
+                        <FormLabel htmlFor="lastName">Last Name: </FormLabel>
                         <FormControl>
                           <Input
-                            label="price"
-                            type="number"
-                            placeholder="Price"
+                            label="lastName"
+                            type="text"
+                            placeholder="Last Name"
                             disabled={loading}
                             {...field}
-                            {...form.register("price", { valueAsNumber: true })}
+                            {...form.register("lastName")}
                             className="my-2"
                           />
                         </FormControl>
@@ -146,20 +146,18 @@ const EditProductForm = ({ id }) => {
                   />
                   <FormField
                     control={form.control}
-                    name="quantity"
+                    name="City"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor="quantity">Quantity: </FormLabel>
+                        <FormLabel htmlFor="city">City: </FormLabel>
                         <FormControl>
                           <Input
-                            label="quantity"
-                            type="number"
-                            placeholder="Quantity"
+                            label="city"
+                            type="text"
+                            placeholder="City"
                             disabled={loading}
                             {...field}
-                            {...form.register("quantity", {
-                              valueAsNumber: true,
-                            })}
+                            {...form.register("City")}
                             className="my-2"
                           />
                         </FormControl>
@@ -177,7 +175,7 @@ const EditProductForm = ({ id }) => {
                 </Button>
               </form>
             </Form>
-            <DeleteDialog callback={deleteProduct} type={"product"} />
+            <DeleteDialog callback={deleteCustomer} type={"customer"} />
           </CardContent>
           <CardFooter className="flex flex-col"></CardFooter>
         </Card>
@@ -188,4 +186,4 @@ const EditProductForm = ({ id }) => {
   );
 };
 
-export default EditProductForm;
+export default EditCustomerForm;

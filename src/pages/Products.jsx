@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetchAll from "../hooks/useFetchAll ";
-import useFetchById from "../hooks/useFetchById";
 import useAdd from "../hooks/useAdd";
-import useUpdate from "../hooks/useUpdate";
-import useDelete from "../hooks/useDelete";
 import { Button } from "@/components/ui/Button";
 import Loading from "@/components/ui/loading";
 import Error from "@/components/ui/error";
@@ -21,8 +18,6 @@ const Products = () => {
   const { data: purchases, getData: getPurchases } = useFetchAll();
   const { data: customers, getData: getCustomers } = useFetchAll();
   const { addToDatabase } = useAdd();
-  const { updateData } = useUpdate();
-  const { deleteData } = useDelete();
 
   useEffect(() => {
     getProducts("products");

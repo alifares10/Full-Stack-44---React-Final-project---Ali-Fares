@@ -33,7 +33,23 @@ const useDelete = () => {
         });
         //then delete the product
         await deleteDoc(doc(db, collectionName, id));
+      } else if (collectionName === "customers") {
+        // if the collection is customers, delete all purchases with the customerID
+        console.log(`deleting ${collectionName}`);
+        const q = query(
+          collection(db, "purchases"),
+          where("CustomerID", "==", id)
+        );
+        onSnapshot(q, (querySnapshot) => {
+          querySnapshot.forEach(async (document) => {
+            console.log("deleting individual purchase");
+            await deleteDoc(doc(db, "purchases", document.id));
+          });
+        });
+        //then delete the customer
+        await deleteDoc(doc(db, collectionName, id));
       } else {
+        // if the collection is neither products nor customers, then its purchases so just delete the document
         console.log(`deleting ${collectionName}`);
         await deleteDoc(doc(db, collectionName, id));
       }

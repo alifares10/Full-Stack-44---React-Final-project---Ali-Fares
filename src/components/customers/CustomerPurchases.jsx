@@ -11,12 +11,12 @@ import useFetchAll from "@/hooks/useFetchAll ";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const ProductCustomers = ({ id }) => {
-  const { data: customers, loading, error, getData } = useFetchAll();
+const CustomerPurchases = ({ id }) => {
+  const { data: products, loading, error, getData } = useFetchAll();
   const { data: purchases, getData: getPurchase } = useFetchAll();
 
   useEffect(() => {
-    getData("customers");
+    getData("products");
     getPurchase("purchases");
   }, []);
 
@@ -24,31 +24,29 @@ const ProductCustomers = ({ id }) => {
   if (error) return <div>Error: {error.message}</div>;
 
   const filteredPurchases = purchases.filter(
-    (purchase) => purchase.ProductID === id
+    (purchase) => purchase.CustomerID === id
   );
-  const filteredCustomers = customers.filter((customer) =>
-    filteredPurchases
-      .map((purchase) => purchase.CustomerID)
-      .includes(customer.id)
+  const filteredProducts = products.filter((product) =>
+    filteredPurchases.map((purchase) => purchase.ProductID).includes(product.id)
   );
 
   return (
     <>
-      {filteredCustomers && (
-        <Card className="space-y-1 flex flex-col lg:w-[600px] m-3">
+      {filteredPurchases && (
+        <Card className="space-y-1 flex flex-col lg:w-[600px]  m-3">
           <CardHeader>
             <CardTitle className="tracking-wide">
-              Customer Who Purchased This Product
+              Products That The Customer Purchased
             </CardTitle>
           </CardHeader>
-          <CardContent className="grid grid-cols-4">
-            {filteredCustomers.map((customer) => (
-              <li key={customer.id}>
+          <CardContent className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1">
+            {filteredProducts.map((product) => (
+              <li key={product.id}>
                 <Link
-                  to={`/customers/${customer.id}`}
+                  to={`/products/${product.id}`}
                   className="font-bold  hover:text-gray-500"
                 >
-                  {customer.firstName} {customer.lastName}
+                  {product.name}
                 </Link>
               </li>
             ))}
@@ -59,4 +57,4 @@ const ProductCustomers = ({ id }) => {
   );
 };
 
-export default ProductCustomers;
+export default CustomerPurchases;
