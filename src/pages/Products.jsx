@@ -25,33 +25,22 @@ const Products = () => {
     getCustomers("customers");
   }, []);
 
-  const addProduct = async () => {
-    const product = {
-      name: "Product 4",
-      price: 100,
-      quantity: 1,
-    };
-    await addToDatabase("products", product);
-  };
-
   if (loading) return <Loading />;
   if (error) return <Error message={error.message} />;
 
   return (
-    <div className="justify-start flex items-center flex-col mx-auto h-fit min-h-screen p-4">
-      <h1>products</h1>
-      <Button onClick={addProduct}>Add Product</Button>
+    <div className="justify-start flex items-center flex-col mx-auto h-fit min-h-screen p-4 max-w-[100wv] w-screen ">
       <PurchasedAmount />
-
       {products.length > 0 ? (
         <>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 ">
             {products.map((product, index) => (
               <ProductCard
                 key={index}
                 product={product}
                 purchases={purchases}
                 customers={customers}
+                allProducts={products}
               />
             ))}
           </div>

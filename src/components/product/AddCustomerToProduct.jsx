@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
-import useFetchAll from "@/hooks/useFetchAll ";
 import useAdd from "@/hooks/useAdd";
 import toast from "react-hot-toast";
 import ProductsCombox from "../purchases/ProductsCombox";
 
-const AddCustomerToProduct = ({ customer }) => {
+const AddCustomerToProduct = ({ customer, allProducts }) => {
   const [showAddCustomer, setShowAddCustomer] = useState(false);
-  const { data: products, getData, loading } = useFetchAll();
   const { addToDatabase } = useAdd();
   const [value, setValue] = useState("");
-
-  useEffect(() => {
-    getData("products");
-  }, []);
 
   const savePurchase = async () => {
     if (!value) {
@@ -39,7 +33,7 @@ const AddCustomerToProduct = ({ customer }) => {
       </Button>
       {showAddCustomer && (
         <div className="flex flex-col">
-          <ProductsCombox products={products} callback={setValue} />
+          <ProductsCombox products={allProducts} callback={setValue} />
           <Button onClick={savePurchase}>Save</Button>
         </div>
       )}

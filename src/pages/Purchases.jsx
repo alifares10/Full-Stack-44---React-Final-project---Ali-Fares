@@ -40,7 +40,7 @@ const Purchases = () => {
   });
 
   return (
-    <div className="justify-start flex items-center flex-col mx-auto h-fit min-h-screen p-4 space-y-3">
+    <div className="justify-start flex items-center flex-col mx-auto h-fit min-h-screen p-4 space-y-3 w-screen">
       <h1>Purchases</h1>
       {customers !== undefined && products !== undefined ? (
         <div className="flex flex-col justify-center">

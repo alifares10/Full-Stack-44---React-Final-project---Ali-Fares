@@ -20,11 +20,13 @@ import { toast } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { db } from "../firebase";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -53,16 +55,29 @@ const SignIn = () => {
         values.email,
         values.password
       );
-      const payload = {
-        id: credentials.user.uid,
-        email: credentials.user.email,
-        token: credentials.user.accessToken,
-        isAuth: true,
-      };
-      dispatch({ type: "LOGIN", payload });
-      toast.success("Logged in successfully");
-      setLoading(false);
-      navigate("/");
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", credentials.user.email)
+      );
+      onSnapshot(q, (querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach(async (document) => {
+          items.push({ ...document.data() });
+        });
+        if (items.length > 0) {
+          const payload = {
+            id: credentials.user.uid,
+            email: credentials.user.email,
+            token: credentials.user.accessToken,
+            isAuth: true,
+            role: items[0].role,
+          };
+          dispatch({ type: "LOGIN", payload });
+          toast.success("Logged in successfully");
+          setLoading(false);
+          navigate("/");
+        }
+      });
     } catch (error) {
       if (error.code === "auth/user-not-found") {
         toast.error("User not found");
@@ -79,7 +94,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="relative flex flex-col justify-start items-center min-h-screen overflow-hidden p-8">
+    <div className="relative flex flex-col justify-start items-center min-h-screen overflow-hidden p-8 w-screen">
       <div className="md:w-full lg:max-w-lg w-[300px] ">
         <Card>
           <CardHeader className="space-y-1">

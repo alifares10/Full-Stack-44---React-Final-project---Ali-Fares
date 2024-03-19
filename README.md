@@ -1,8 +1,8 @@
-# React + Vite
+# Full Stack 44 – React Final project – Ali Fares
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## installation
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Clone the project to your local machine
+- Create youre firebase project and then replace the the firebase.js file in the src folder
+- Run `npm install` to install all the dependencies
+- Run `npm run dev` to start the server on your local machine

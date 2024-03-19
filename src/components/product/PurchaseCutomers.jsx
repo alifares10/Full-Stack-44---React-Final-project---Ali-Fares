@@ -1,33 +1,7 @@
-import { Button } from "../ui/Button";
-import useAdd from "@/hooks/useAdd";
-import useFetchAll from "@/hooks/useFetchAll ";
-import { useEffect, useMemo, useState } from "react";
 import AddCustomerToProduct from "./AddCustomerToProduct";
 import { Link } from "react-router-dom";
 
-const PurchaseCutomers = ({ product, purchases, customers }) => {
-  const { addToDatabase } = useAdd();
-
-  // const handleClick = async () => {
-  //   const randomCustomer =
-  //     customers[Math.floor(Math.random() * customers.length)];
-
-  //   const purchase = {
-  //     CustomerID: randomCustomer.id,
-  //     ProductID: product.id,
-  //     date: new Date().toISOString(),
-  //   };
-  //   await addToDatabase("purchases", purchase);
-  // };
-  // const addcustomer = async () => {
-  //   const customer = {
-  //     firstName: "charley",
-  //     lastName: "brown",
-  //     City: "New York",
-  //   };
-  //   await addToDatabase("customers", customer);
-  // };
-
+const PurchaseCutomers = ({ product, purchases, customers, allProducts }) => {
   const filteredPurchases = purchases.filter(
     (purchase) => purchase.ProductID === product.id
   );
@@ -74,7 +48,10 @@ const PurchaseCutomers = ({ product, purchases, customers }) => {
                 }
               })}
 
-              <AddCustomerToProduct customer={customer} />
+              <AddCustomerToProduct
+                customer={customer}
+                allProducts={allProducts}
+              />
             </div>
           ))}
         </>

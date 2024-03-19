@@ -9,7 +9,7 @@ import {
 import PurchaseCutomers from "./PurchaseCutomers";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ product, purchases, customers }) => {
+const ProductCard = ({ product, purchases, customers, allProducts }) => {
   return (
     <Card
       className="lg:w-[500px]  justify-center items-center text-center p-2 m-3 dark:hover:bg-slate-800
@@ -35,6 +35,7 @@ const ProductCard = ({ product, purchases, customers }) => {
               product={product}
               purchases={purchases}
               customers={customers}
+              allProducts={allProducts}
             />
           </CardContent>
         </>

@@ -4,6 +4,7 @@ const initialState = {
     email: "",
     isAuth: false,
     token: "",
+    role: "",
   },
 };
 
@@ -22,6 +23,7 @@ export const userReducer = (state = initialState, action) => {
           email: "",
           isAuth: false,
           token: "",
+          role: "",
         },
       };
 

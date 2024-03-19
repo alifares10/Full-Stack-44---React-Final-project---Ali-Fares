@@ -20,11 +20,9 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user);
-      } else {
+      if (!user) {
         dispatch({ type: "LOGOUT" });
-        console.log("No user");
+        navigate("/signin");
       }
     });
 

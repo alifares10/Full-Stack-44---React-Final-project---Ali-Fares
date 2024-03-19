@@ -22,13 +22,12 @@ import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { db } from "../firebase";
-import { addDoc, collection } from "firebase/firestore";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useAdd from "@/hooks/useAdd";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -38,6 +37,8 @@ const formSchema = z.object({
   password: z
     .string()
     .min(6, { message: "Password must be at least 6 characters long" }),
+
+  role: z.enum(["user", "admin"]),
 });
 
 const SignUp = () => {
@@ -52,6 +53,7 @@ const SignUp = () => {
       email: "",
       name: "",
       password: "",
+      role: "user",
     },
   });
   const onSubmit = async (values) => {
@@ -67,18 +69,20 @@ const SignUp = () => {
         email: credentials.user.email,
         token: credentials.user.accessToken,
         isAuth: true,
+        role: values.role,
       };
       dispatch({ type: "LOGIN", payload });
       await addToDatabase("users", {
         email: credentials.user.email,
         name: values.name,
+        role: values.role,
       });
       toast.success("Signed up successfully");
       setLoading(false);
       navigate("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        toast.error("Email already in Created");
+        toast.error("Email already Used");
         setLoading(false);
       } else {
         console.log(error.message);
@@ -89,7 +93,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="relative flex flex-col justify-start items-center min-h-screen overflow-hidden p-8">
+    <div className="relative flex flex-col justify-start items-center min-h-screen overflow-hidden p-8 w-screen">
       <div className="md:w-full lg:max-w-lg w-[300px] ">
         <Card>
           <CardHeader className="space-y-1">
@@ -158,6 +162,30 @@ const SignUp = () => {
                             className="my-2"
                           />
                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="role"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Checkbox
+                            label="Admin"
+                            disabled={loading}
+                            onCheckedChange={(checked) => {
+                              form.setValue("role", checked ? "admin" : "user");
+                            }}
+                            {...field}
+                            className="my-2"
+                          />
+                        </FormControl>
+                        <FormLabel className="mx-3 items-center justify-center leading-none">
+                          is Admin ?
+                        </FormLabel>
                         <FormMessage />
                       </FormItem>
                     )}

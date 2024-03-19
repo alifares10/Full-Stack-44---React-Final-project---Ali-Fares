@@ -26,11 +26,11 @@ const ProductCustomers = ({ id }) => {
   const filteredPurchases = purchases.filter(
     (purchase) => purchase.ProductID === id
   );
-  const filteredCustomers = customers.filter((customer) =>
-    filteredPurchases
+  const filteredCustomers = customers.filter((customer) => {
+    return filteredPurchases
       .map((purchase) => purchase.CustomerID)
-      .includes(customer.id)
-  );
+      .includes(customer.id);
+  });
 
   return (
     <>

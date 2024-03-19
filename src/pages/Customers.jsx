@@ -25,7 +25,6 @@ const Customers = () => {
 
   //combine customers with purchases and products
   const customersWithPurchases = useMemo(() => {
-    console.log("useMemo");
     const res = customers.map((customer) => {
       const customerPurchases = purchases.filter(
         (purchase) => purchase.CustomerID === customer.id
@@ -47,7 +46,7 @@ const Customers = () => {
   if (error) return <Error message={error.message} />;
 
   return (
-    <div className="justify-start flex items-center flex-col mx-auto h-fit min-h-screen p-4 space-y-3">
+    <div className="justify-start flex items-center flex-col mx-auto h-fit min-h-screen p-4 space-y-3 w-screen">
       <h1>Customers</h1>
       {products && customers && purchases && (
         <>

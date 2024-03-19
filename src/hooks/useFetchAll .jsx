@@ -11,7 +11,6 @@ const useFetchAll = () => {
     setLoading(true);
     setError(null);
     try {
-      console.log(`fetching ${collectionName}`);
       const q = query(collection(db, collectionName));
       onSnapshot(q, (querySnapshot) => {
         const items = [];

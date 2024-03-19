@@ -8,6 +8,7 @@ import { auth } from "../../firebase";
 import { toast } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { Badge } from "@/components/ui/badge";
 
 const NavBar = (className) => {
   const user = useSelector((state) => state.user.user);
@@ -61,11 +62,19 @@ const NavBar = (className) => {
       </div>
       <div className="flex items-center ">
         {user.isAuth ? (
-          <div className="flex mx-3 space-x-2">
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+          <div className="flex mx-3 space-x-2 items-center justify-center">
+            <div className="flex flex-col items-center justify-center">
+              {user.role === "admin" && (
+                <Badge className="" variant="destructive">
+                  Admin
+                </Badge>
+              )}
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
+
             <Button onClick={handleSignOut}>Sign Out</Button>
           </div>
         ) : (
